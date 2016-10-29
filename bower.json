@@ -1,0 +1,22 @@
+{
+  "name": "InterestJs",
+  "authors": [
+    "Alejandro Vera <xafilox@gmail.com>"
+  ],
+  "description": "Interest Javascript library",
+  "main": "interest.js",
+  "keywords": [
+    "image",
+    "interest",
+    "library"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
