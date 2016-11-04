@@ -13,24 +13,28 @@ var InterestTracker = (function() {
 	/*
 	 * PUBLIC METHODS
 	 */
-	InterestTracker.prototype.zoom = function(upper_left_x, upper_left_y, bottom_right_x, bottom_right_y) {
+	InterestTracker.prototype.zoom = function(upper_left_x, upper_left_y, bottom_right_x, bottom_right_y, time, isFinal) {
 
 		submitOperation.call(this, 'zoom', {
 			'upper_left_x': upper_left_x,
 			'upper_left_y': upper_left_y,
 			'bottom_right_x': bottom_right_x,
-			'bottom_right_y': bottom_right_y
+			'bottom_right_y': bottom_right_y,
+			'time': time,
+			'is_final': isFinal
 		});
 
 	};
 
-	InterestTracker.prototype.movement = function(upper_left_x, upper_left_y, bottom_right_x, bottom_right_y) {
+	InterestTracker.prototype.movement = function(upper_left_x, upper_left_y, bottom_right_x, bottom_right_y, time, isFinal) {
 
 		submitOperation.call(this, 'movement', {
 			'upper_left_x': upper_left_x,
 			'upper_left_y': upper_left_y,
 			'bottom_right_x': bottom_right_x,
-			'bottom_right_y': bottom_right_y
+			'bottom_right_y': bottom_right_y,
+			'time': time,
+			'is_final': isFinal
 		});
 
 	};
@@ -57,7 +61,6 @@ var InterestTracker = (function() {
 		}
 
 		// Add extra operation data
-		params.push('time=' + encodeURIComponent(new Date().getTime()));
 		params.push('op_order=' + encodeURIComponent(this.opOrder++));
 
 		return params.join('&');
@@ -80,7 +83,7 @@ var InterestTracker = (function() {
 			if (this.status === 200) {
 				console.log(this.responseText);
 			} else {
-				console.error('There was a problem with the request.');
+				console.error('There was a problem with the request:' + this.statusText);
 			}
 		}
 	};
