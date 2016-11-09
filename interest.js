@@ -55,15 +55,17 @@ var InterestTracker = (function() {
 	};
 
 	var prepareOperationData = function(data) {
-		var params = [];
+		var params = {};
 		for(var name in data) {
-			params.push(name + '=' + encodeURIComponent(data[name]));
+			if(data.hasOwnProperty(name)) {
+				params[name] = data[name];
+			}
 		}
 
 		// Add extra operation data
-		params.push('op_order=' + encodeURIComponent(this.opOrder++));
-
-		return params.join('&');
+		data['op_order'] = this.opOrder++;
+		
+		return JSON.stringify(data);
 	};
 
 	var sendData = function(url, data) {
@@ -75,6 +77,7 @@ var InterestTracker = (function() {
 		}
 		httpRequest.onreadystatechange = processResponse.bind(httpRequest);
 		httpRequest.open('POST', url);
+		httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 		httpRequest.send(data);
 	};
 
