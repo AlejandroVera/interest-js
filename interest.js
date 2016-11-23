@@ -45,16 +45,16 @@ var InterestTracker = (function() {
 	var submitOperation = function(name, data) {
 
 		var url = prepareOperationUrl.call(this, name);
-		var dataStr = prepareOperationData.call(this, data);
+		var dataStr = prepareOperationData.call(this, name, data);
 
 		sendData(url, dataStr);
 	};
 
 	var prepareOperationUrl = function(action) {
-		return this.host + this.imageId + '/' + this.userId + '/' + action;
+		return this.host + this.imageId + '/' + this.userId;
 	};
 
-	var prepareOperationData = function(data) {
+	var prepareOperationData = function(op_name, data) {
 		var params = {};
 		for(var name in data) {
 			if(data.hasOwnProperty(name)) {
@@ -63,6 +63,7 @@ var InterestTracker = (function() {
 		}
 
 		// Add extra operation data
+		data['event_type'] = op_name;
 		data['op_order'] = this.opOrder++;
 		
 		return JSON.stringify(data);
