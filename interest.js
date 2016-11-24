@@ -66,7 +66,7 @@ var InterestTracker = (function() {
 		data['event_type'] = op_name;
 		data['op_order'] = this.opOrder++;
 		
-		return JSON.stringify(data);
+		return JSON.stringify([data]); //For some reason Flume only accepts an array with the object instead of the object
 	};
 
 	var sendData = function(url, data) {
